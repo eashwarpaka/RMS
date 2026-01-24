@@ -1,19 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
+const {
+  createCategory,
+  getCategories
+} = require("../controllers/category.controller");
+
 const { verifyToken } = require("../middleware/auth.middleware");
 const { allowRoles } = require("../middleware/role.middleware");
 
-router.get(
-  "/dashboard",
-  verifyToken,
-  allowRoles("admin"),
-  (req, res) => {
-    res.json({
-      message: "Admin dashboard",
-      user: req.user
-    });
-  }
-);
+router.post("/", verifyToken, allowRoles("admin"), createCategory);
+router.get("/", verifyToken, getCategories);
 
 module.exports = router;

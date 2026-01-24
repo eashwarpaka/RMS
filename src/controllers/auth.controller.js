@@ -43,6 +43,13 @@ exports.loginUser = async (req, res) => {
 exports.registerUser = async (req, res) => {
   const { name, email, password, role } = req.body;
 
+  // ✅ Validate required fields
+  if (!name || !email || !password || !role) {
+    return res.status(400).json({
+      message: "name, email, password and role are required"
+    });
+  }
+
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -63,4 +70,5 @@ exports.registerUser = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
