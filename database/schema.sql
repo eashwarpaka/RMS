@@ -1,0 +1,42 @@
+-- USERS TABLE
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100),
+  email VARCHAR(100) UNIQUE NOT NULL,
+  password TEXT NOT NULL,
+  role VARCHAR(20) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- CATEGORIES TABLE
+CREATE TABLE categories (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(100) NOT NULL
+);
+
+-- MENU ITEMS
+CREATE TABLE menu_items (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(150) NOT NULL,
+  price NUMERIC(10,2) NOT NULL,
+  category_id INTEGER REFERENCES categories(id),
+  stock_qty INTEGER DEFAULT 0
+);
+
+-- ORDERS
+CREATE TABLE orders (
+  id SERIAL PRIMARY KEY,
+  table_no VARCHAR(10),
+  status VARCHAR(20),
+  total_amount NUMERIC(10,2),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ORDER ITEMS
+CREATE TABLE order_items (
+  id SERIAL PRIMARY KEY,
+  order_id INTEGER REFERENCES orders(id) ON DELETE CASCADE,
+  menu_item_id INTEGER REFERENCES menu_items(id),
+  qty INTEGER,
+  price NUMERIC(10,2)
+);
