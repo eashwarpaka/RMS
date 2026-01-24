@@ -40,3 +40,8 @@ CREATE TABLE order_items (
   qty INTEGER,
   price NUMERIC(10,2)
 );
+
+UPDATE users
+SET password = 'PASTE_HASH_HERE'
+WHERE email = 'admin@rms.com';
+
