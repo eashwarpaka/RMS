@@ -1,7 +1,14 @@
 require("dotenv").config();
 
 const express = require("express");
+const cors = require("cors");
+
 const app = express();
+
+// ✅ Allow frontend
+app.use(cors({
+  origin: "http://localhost:5173"
+}));
 
 app.use(express.json());
 
@@ -11,7 +18,6 @@ const categoryRoutes = require("./routes/category.routes");
 const menuRoutes = require("./routes/menu.routes");
 const orderRoutes = require("./routes/order.routes");
 const dashboardRoutes = require("./routes/dashboard.routes");
-
 
 app.use("/api/auth", authRoutes);
 app.use("/api", protectedRoutes);
